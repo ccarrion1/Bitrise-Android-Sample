@@ -54,7 +54,7 @@ workflows:
             pwd
     - deploy-to-bitrise-io@1:
         inputs:
-        - notify_user_groups: none
+        - deploy_path: "/bitrise/src/app/build/outputs/apk/debug"
   primary:
     steps:
     - activate-ssh-key@4:
