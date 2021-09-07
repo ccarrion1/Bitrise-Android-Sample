@@ -22,6 +22,25 @@ app:
       is_expand: false
     GRADLEW_PATH: ./gradlew
 workflows:
+  build-debug-apk:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@4: {}
+    - cache-pull@2: {}
+    - install-missing-android-tools@2:
+        inputs:
+        - gradlew_path: $PROJECT_LOCATION/gradlew
+    - script@1.1.6:
+        inputs:
+        - content: | 
+            #!/bin/bash
+            set -e 
+            
+            #build app
+            echo "Building app"
+            set -x
+            $PROJECT_LOCATION/gradlew assembleDebug
   primary:
     steps:
     - activate-ssh-key@4:
