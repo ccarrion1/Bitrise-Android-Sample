@@ -4,9 +4,9 @@ default_step_lib_source: 'https://github.com/bitrise-io/bitrise-steplib.git'
 project_type: android
 trigger_map:
 - push_branch: '*'
-  workflow: primary
+  workflow: build-debug-apk
 - pull_request_source_branch: '*'
-  workflow: primary
+  workflow: build-debug-apk
 app:
   envs:
   - opts:
@@ -41,6 +41,9 @@ workflows:
             echo "Building app"
             set -x
             $PROJECT_LOCATION/gradlew assembleDebug
+    - deploy-to-bitrise-io@1:
+        inputs:
+        - notify_user_groups: none
   primary:
     steps:
     - activate-ssh-key@4:
