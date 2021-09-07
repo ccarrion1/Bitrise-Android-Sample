@@ -165,3 +165,6 @@ workflows:
         - use_apk_signer: 'true'
     - deploy-to-bitrise-io@1: {}
     - cache-push@2: {}
+meta:
+  bitrise.io:
+    machine_type_id: elite
