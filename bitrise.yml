@@ -41,6 +41,13 @@ workflows:
             echo "Building app"
             set -x
             $PROJECT_LOCATION/gradlew assembleDebug
+    - android-unit-test@1.0.4:
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - module: app
+        - arguments: ''
+        - cache_level: all
+        - variant: debug
     - script@1.1.6:
         title: check artifact
         inputs:
