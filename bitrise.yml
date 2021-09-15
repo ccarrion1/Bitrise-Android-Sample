@@ -65,7 +65,7 @@ workflows:
         - project_location: $PROJECT_LOCATION
         - module: app
         - variant: debug
-        - apk_path: /Users/vagrant/git/app/build/outputs/apk/debug
+        - app_path: /Users/vagrant/git/app/build/outputs/apk/debug/app-debug.apk
         - directories_to_pull: /sdcard/
         - download_test_results: 'true'
         - test_devices: 'NexusLowRes,29,en,portrait'
