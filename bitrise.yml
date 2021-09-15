@@ -31,6 +31,13 @@ workflows:
     - install-missing-android-tools@2:
         inputs:
         - gradlew_path: $PROJECT_LOCATION/gradlew
+    - android-unit-test@1.0.4:
+        inputs:
+        - project_location: $PROJECT_LOCATION
+        - module: app
+        - arguments: ''
+        - cache_level: all
+        - variant: debug
     - script@1.1.6:
         inputs:
         - content: | 
@@ -41,13 +48,6 @@ workflows:
             echo "Building app"
             set -x
             $PROJECT_LOCATION/gradlew assembleDebug
-    - android-unit-test@1.0.4:
-        inputs:
-        - project_location: $PROJECT_LOCATION
-        - module: app
-        - arguments: ''
-        - cache_level: all
-        - variant: debug
     - script@1.1.6:
         title: check artifact
         inputs:
@@ -59,6 +59,16 @@ workflows:
             cd $PROJECT_LOCATION/app/build/outputs/apk/debug
             ls
             pwd
+    - virtual-device-testing-for-android@1.1.5:
+        inputs:
+        - test_type: robo
+        - project_location: $PROJECT_LOCATION
+        - module: app
+        - variant: debug
+        - apk_path: /Users/vagrant/git/app/build/outputs/apk/debug
+        - directories_to_pull: /sdcard/
+        - download_test_results: 'true'
+        - test_devices: 'NexusLowRes,29,en,portrait'
     - deploy-to-bitrise-io@1:
         inputs:
         - deploy_path: "/Users/vagrant/git/app/build/outputs/apk/debug"
