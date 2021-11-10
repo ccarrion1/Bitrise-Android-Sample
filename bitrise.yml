@@ -22,6 +22,12 @@ app:
       is_expand: false
     GRADLEW_PATH: ./gradlew
 workflows:
+  tag-test:
+    steps:
+    - activate-ssh-key@4:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone@6: {}
+    - git-tag@1.1.0: {}
   build-debug-apk:
     steps:
     - activate-ssh-key@4:
